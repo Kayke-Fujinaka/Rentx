@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 
 services: 
   database:
@@ -11,6 +11,7 @@ services:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=1234
       - POSTGRES_DB=rentx
+      - POSTGRES_HOST=database
     volumes:
       - pgdata:/data/postgres
 
