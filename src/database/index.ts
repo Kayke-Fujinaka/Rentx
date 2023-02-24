@@ -1,12 +1,13 @@
-import { DataSource } from "typeorm";
+import { DataSource, DataSourceOptions } from "typeorm";
 
-const dataSource = new DataSource({
+const appDataSource: DataSourceOptions = {
   type: "postgres",
-  host: "database",
+  host: process.env.POSTGRES_HOST,
   port: 5432,
   username: "docker",
   password: "1234",
   database: "rentx",
-});
+  migrations: ["src/database/migrations/*.ts"],
+};
 
-dataSource.initialize();
+export const dataSource = new DataSource(appDataSource);
