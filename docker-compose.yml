@@ -21,10 +21,12 @@ services:
       - 3333:3333
     volumes:
       - .:/usr/app  
-    links:
-      - database
     depends_on:
       - database
+
+networks:
+  default:
+    driver: bridge
 
 volumes:
   pgdata:
