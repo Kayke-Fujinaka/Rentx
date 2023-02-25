@@ -1,5 +1,7 @@
 import { randomUUID } from "node:crypto";
+import { Entity } from "typeorm";
 
+@Entity("categories")
 class Category {
   id?: string;
   name: string;
