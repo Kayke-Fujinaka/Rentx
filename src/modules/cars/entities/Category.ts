@@ -1,11 +1,18 @@
 import { randomUUID } from "node:crypto";
-import { Entity } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 
 @Entity("categories")
 class Category {
+  @PrimaryColumn()
   id?: string;
+
+  @Column()
   name: string;
+
+  @Column()
   description: string;
+
+  @CreateDateColumn()
   created_at: Date;
 
   constructor() {
