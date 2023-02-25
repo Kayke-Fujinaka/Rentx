@@ -1,3 +1,4 @@
+import { HttpError } from "../../../../shared/utils/HttpError";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IRequest {
@@ -13,7 +14,9 @@ class CreateCategoryUseCase {
       name
     );
 
-    if (categoryAlreadyExists) throw new Error("Category already exists!");
+    if (categoryAlreadyExists) {
+      throw new HttpError("Category already exists!", 400);
+    }
 
     this.categoriesRepository.create({ name, description });
   }

@@ -1,3 +1,4 @@
+import { HttpError } from "../../../../shared/utils/HttpError";
 import { SpecificationRepository } from "../../repositories/implementations/SpecificationsRepository";
 
 interface IRequest {
@@ -12,8 +13,9 @@ class CreateSpecificationUseCase {
     const specificationAlreadyExists =
       this.specificationRepository.findByName(name);
 
-    if (specificationAlreadyExists)
-      throw new Error("Specification already exists!");
+    if (specificationAlreadyExists) {
+      throw new HttpError("Specification already exists!", 400);
+    }
 
     this.specificationRepository.create({
       name,
