@@ -1,13 +1,22 @@
-import { DataSource, DataSourceOptions } from "typeorm";
+import { DataSource } from "typeorm";
 
-const appDataSource: DataSourceOptions = {
+import { Category } from "../modules/cars/entities/Category";
+
+const AppDataSource = new DataSource({
   type: "postgres",
-  host: process.env.POSTGRES_HOST,
+  host: "database",
   port: 5432,
   username: "docker",
   password: "1234",
   database: "rentx",
+  entities: [Category],
   migrations: ["src/database/migrations/*.ts"],
-};
+});
 
-export const dataSource = new DataSource(appDataSource);
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Initialized");
+  })
+  .catch((error) => console.log(error));
+
+export default AppDataSource;
