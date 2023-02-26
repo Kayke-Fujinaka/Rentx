@@ -10,6 +10,7 @@ services:
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=1234
+      - POSTGRES_HOST=database
       - POSTGRES_DB=rentx
     volumes:
       - pgdata:/data/postgres
@@ -17,10 +18,13 @@ services:
   app:
     build: .
     container_name: rentx
+    restart: always
     ports:
       - 3333:3333
     volumes:
-      - .:/usr/app 
+      - .:/usr/app
+    network_mode:
+      - host
     depends_on:
       - database
 
