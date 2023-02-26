@@ -1,4 +1,4 @@
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import { HttpError } from "../../../../shared/utils/HttpError";
 import { SpecificationsRepository } from "../../repositories/implementations/SpecificationsRepository";
@@ -8,6 +8,7 @@ interface IRequest {
   description: string;
 }
 
+@injectable()
 class CreateSpecificationUseCase {
   constructor(
     @inject("SpeciaficationsRepository")
