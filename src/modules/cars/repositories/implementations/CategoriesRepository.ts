@@ -1,6 +1,7 @@
 import { Repository } from "typeorm";
 
 import AppDataSource from "../../../../database";
+import { ICreateCategoryDTO } from "../../dtos/ICreateCategoryDTO";
 import { Category } from "../../entities/Category";
 import { ICategoriesRepository } from "../ICategoriesRepository";
 
@@ -11,7 +12,7 @@ class CategoriesRepository implements ICategoriesRepository {
     this.repository = AppDataSource.getRepository(Category);
   }
 
-  async create({ name, description }): Promise<void> {
+  async create({ name, description }: ICreateCategoryDTO): Promise<void> {
     const category = this.repository.create({
       name,
       description,
