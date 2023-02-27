@@ -10,8 +10,8 @@ services:
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=1234
-      - POSTGRES_HOST=database
       - POSTGRES_DB=rentx
+      - DOCKER_CONTAINER=true
     volumes:
       - pgdata:/data/postgres
 
@@ -25,7 +25,10 @@ services:
       - .:/usr/app
     depends_on:
       - database
-
+    environment:
+      - DB_HOST=database
+      - DOCKER_CONTAINER=true
+    
 networks:
   default:
     driver: bridge

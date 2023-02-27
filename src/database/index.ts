@@ -1,11 +1,14 @@
+import dotenv from "dotenv";
 import { DataSource } from "typeorm";
 
 import { Category } from "../modules/cars/entities/Category";
 import { Specification } from "../modules/cars/entities/Specification";
 
+dotenv.config();
+
 const AppDataSource = new DataSource({
   type: "postgres",
-  host: "database", // "localhost"
+  host: process.env.DOCKER_CONTAINER ? process.env.DB_HOST : "localhost",
   port: 5432,
   username: "docker",
   password: "1234",
