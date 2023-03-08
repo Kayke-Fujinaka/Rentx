@@ -30,7 +30,7 @@ class AuthenticateUserUseCase {
 
     if (!user) throw new HttpError("Email ou senha incorreto!", 404);
 
-    const passwordMatch = compare(password, user.password);
+    const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) throw new HttpError("Email ou senha incorreto!", 404);
 
