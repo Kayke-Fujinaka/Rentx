@@ -16,21 +16,17 @@ app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-app.use(
-  (err: Error, request: Request, response: Response, next: NextFunction) => {
-    if (err instanceof HttpError) {
-      return response.status(err.statusCode).json({
-        message: err.message,
-      });
-    }
-
-    return response.status(500).json({
-      status: "error",
-      message: `Internal server error - ${err.message}`,
-    });
-  }
-);
-
 app.use(router);
+
+app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+  if (error instanceof HttpError) {
+    return res.status(error.statusCode).json({ message: error.message });
+  }
+
+  return res.status(500).json({
+    status: "error",
+    message: `Internal Server Error: ${error.message}`,
+  });
+});
 
 app.listen(3333, () => console.log("Server running!"));
