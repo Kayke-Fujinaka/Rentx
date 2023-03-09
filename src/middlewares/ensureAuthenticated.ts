@@ -13,7 +13,7 @@ export async function ensureAuthenticated(
   response: Response,
   next: NextFunction
 ): Promise<void> {
-  const authHeader = request.headers.authorization;
+  const authHeader: string | undefined = request.headers.authorization;
 
   console.log("1");
 
@@ -21,7 +21,7 @@ export async function ensureAuthenticated(
 
   console.log("1.5");
 
-  const [, token] = authHeader.split(" ");
+  const [, token]: string[] = authHeader.split(" ");
 
   try {
     const { sub: user_id } = verify(
