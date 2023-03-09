@@ -35,7 +35,7 @@ export async function ensureAuthenticated(
 
     console.log("2");
 
-    if (!user) throw new HttpError("User does not exist!", 400);
+    if (!user) throw new HttpError("User does not exist!", 401);
 
     console.log("2.5");
 
