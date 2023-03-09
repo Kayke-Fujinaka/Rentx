@@ -2,7 +2,7 @@ import { parse as csvParse } from "csv-parse";
 import fs from "node:fs";
 import { inject, injectable } from "tsyringe";
 
-import { HttpError } from "../../../../shared/utils/HttpError";
+import { HttpError } from "../../../../errors/HttpError";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IImportCategory {

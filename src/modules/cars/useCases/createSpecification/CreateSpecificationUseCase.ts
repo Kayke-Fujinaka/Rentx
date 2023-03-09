@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { HttpError } from "../../../../shared/utils/HttpError";
+import { HttpError } from "../../../../errors/HttpError";
 import { SpecificationsRepository } from "../../repositories/implementations/SpecificationsRepository";
 
 interface IRequest {
