@@ -1,3 +1,4 @@
+import "express-async-errors";
 import "reflect-metadata";
 import "./database";
 import "./shared/container";
@@ -16,11 +17,17 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(
-  (error: Error, request: Request, response: Response, next: NextFunction) => {
-    if (error instanceof HttpError)
-      return response.status(error.statusCode).json({ message: error.message });
+  (err: Error, request: Request, response: Response, next: NextFunction) => {
+    if (err instanceof HttpError) {
+      return response.status(err.statusCode).json({
+        message: err.message,
+      });
+    }
 
-    return response.status(500).json({ message: "Internal server error" });
+    return response.status(500).json({
+      status: "error",
+      message: `Internal server error - ${err.message}`,
+    });
   }
 );
 
