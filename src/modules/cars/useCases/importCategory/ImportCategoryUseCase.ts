@@ -3,6 +3,7 @@ import fs from "node:fs";
 import { inject, injectable } from "tsyringe";
 
 import { HttpError } from "../../../../errors/HttpError";
+import { deleteFile } from "../../../../utils/file";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IImportCategory {
@@ -34,7 +35,7 @@ class ImportCategoryUseCase {
             categories.push({ name, description });
           })
           .on("end", () => {
-            fs.promises.unlink(file.path);
+            if (file.path) deleteFile(file.path);
             resolve(categories);
           })
           .on("error", (err) => {
