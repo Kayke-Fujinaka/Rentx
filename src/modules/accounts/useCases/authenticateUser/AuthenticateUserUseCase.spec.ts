@@ -1,3 +1,4 @@
+import { HttpError } from "../../../../errors/HttpError";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { UsersRepositoryInMemory } from "../../repositories/in-memory/UsersRepositoryInMemory";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
@@ -38,5 +39,14 @@ describe("Authenticate User", () => {
         email: user.email,
       })
     );
+  });
+
+  it("should not be able to authenticate an nonexistent user", async () => {
+    expect(async () => {
+      await authenticateUserUseCase.execute({
+        email: "false@email.com",
+        password: "123456",
+      });
+    }).rejects.toBeInstanceOf(HttpError);
   });
 });
