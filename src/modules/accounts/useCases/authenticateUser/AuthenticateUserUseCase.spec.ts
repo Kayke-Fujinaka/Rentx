@@ -1,9 +1,10 @@
 import { HttpError } from "@errors/HttpError";
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
-
-import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
-import { AuthenticateUserUseCase } from "./AuthenticateUserUserCase";
+import {
+  AuthenticateUserUseCase,
+  CreateUserUseCase,
+} from "@modules/accounts/useCases";
 
 let authenticateUserUseCase: AuthenticateUserUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
