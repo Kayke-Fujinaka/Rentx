@@ -3,10 +3,10 @@ import "reflect-metadata";
 import "./database";
 import "./shared/container";
 
+import { HttpError } from "@errors/HttpError";
 import express, { NextFunction, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 
-import { HttpError } from "./errors/HttpError";
 import { router } from "./routes";
 import swaggerFile from "./swagger.json";
 

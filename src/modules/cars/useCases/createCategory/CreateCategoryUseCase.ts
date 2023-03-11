@@ -1,7 +1,6 @@
+import { HttpError } from "@errors/HttpError";
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
 import { inject, injectable } from "tsyringe";
-
-import { HttpError } from "../../../../errors/HttpError";
-import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IRequest {
   name: string;
