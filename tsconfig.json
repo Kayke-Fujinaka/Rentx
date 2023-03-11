@@ -10,7 +10,9 @@
       "@config/*": ["src/config/*"],
       "@shared/*": ["src/shared/*"],
       "@errors/*": ["src/errors/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@database": ["src/database"]
     },
     "resolveJsonModule": true,
     "outDir": "./dist",
