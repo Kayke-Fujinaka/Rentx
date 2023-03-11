@@ -1,7 +1,6 @@
 import { HttpError } from "@errors/HttpError";
 import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory";
-
-import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
+import { CreateCategoryUseCase } from "@modules/cars/useCases";
 
 let createCategoryUseCase: CreateCategoryUseCase;
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
