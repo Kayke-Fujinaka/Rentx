@@ -39,4 +39,10 @@ describe("List Categories", () => {
       ])
     );
   });
+
+  it("should be able to list no categories", async () => {
+    const categories = await listCategoriesUseCase.execute();
+
+    expect(categories).toEqual(expect.arrayContaining([]));
+  });
 });
