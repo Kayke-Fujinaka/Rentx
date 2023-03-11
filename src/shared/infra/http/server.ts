@@ -1,14 +1,15 @@
 import "express-async-errors";
 import "reflect-metadata";
-import "./database";
-import "./shared/container";
 
-import { HttpError } from "@errors/HttpError";
 import express, { NextFunction, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 
+import "@shared/container";
+import { HttpError } from "@shared/errors/HttpError";
+import "@shared/infra/typeorm";
+
+import swaggerFile from "../../../swagger.json";
 import { router } from "./routes";
-import swaggerFile from "./swagger.json";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(router);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof HttpError) {
     return res.status(error.statusCode).json({ message: error.message });

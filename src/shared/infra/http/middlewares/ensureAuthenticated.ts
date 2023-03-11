@@ -1,6 +1,7 @@
-import { HttpError } from "@errors/HttpError";
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
+
+import { HttpError } from "@shared/errors/HttpError";
 
 interface IPayload {
   sub: string;

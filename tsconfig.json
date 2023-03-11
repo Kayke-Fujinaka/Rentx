@@ -9,10 +9,8 @@
       "@modules/*": ["src/modules/*"],
       "@config/*": ["src/config/*"],
       "@shared/*": ["src/shared/*"],
-      "@errors/*": ["src/errors/*"],
       "@utils/*": ["src/utils/*"],
-      "@middlewares/*": ["src/middlewares/*"],
-      "@database": ["src/database"]
+      "@database": ["src/shared/infra/typeorm"]
     },
     "resolveJsonModule": true,
     "outDir": "./dist",

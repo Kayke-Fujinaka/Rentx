@@ -1,9 +1,10 @@
-import { HttpError } from "@errors/HttpError";
-import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
-import { deleteFile } from "@utils/file";
 import { parse as csvParse } from "csv-parse";
 import fs from "node:fs";
 import { inject, injectable } from "tsyringe";
+
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
+import { HttpError } from "@shared/errors/HttpError";
+import { deleteFile } from "@utils/file";
 
 interface IImportCategory {
   name: string;

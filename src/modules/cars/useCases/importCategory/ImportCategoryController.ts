@@ -1,6 +1,7 @@
-import { ImportCategoryUseCase } from "@modules/cars/useCases";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+
+import { ImportCategoryUseCase } from "@modules/cars/useCases";
 
 class ImportCategoryController {
   async handle(request: Request, response: Response): Promise<Response> {

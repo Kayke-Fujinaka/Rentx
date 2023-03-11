@@ -1,8 +1,9 @@
-import { HttpError } from "@errors/HttpError";
-import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
+
+import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import { HttpError } from "@shared/errors/HttpError";
 
 interface IRequest {
   email: string;

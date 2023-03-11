@@ -1,5 +1,5 @@
-import { HttpError } from "@errors/HttpError";
 import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory";
+import { HttpError } from "@shared/errors/HttpError";
 
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
