@@ -47,4 +47,18 @@ describe("Create Car", () => {
       });
     }).rejects.toBeInstanceOf(HttpError);
   });
+
+  it("should be able to create a new car with available true by default", async () => {
+    const car = await createCarUseCase.execute({
+      name: "Name Car",
+      description: "Description Car",
+      daily_rate: 100,
+      license_plate: "ABC-1234",
+      fine_amount: 60,
+      brand: "Brand",
+      category_id: "0123456789",
+    });
+
+    expect(car.available).toBe(true);
+  });
 });
