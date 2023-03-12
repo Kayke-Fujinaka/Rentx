@@ -15,7 +15,7 @@ const AppDataSource = new DataSource({
   password: "1234",
   database: "rentx",
   entities: [Category, Specification, User],
-  migrations: ["src/shared/infra/typeorm/*.ts"],
+  migrations: ["src/shared/infra/typeorm/migrations/*.ts"],
 });
 
 AppDataSource.initialize()
