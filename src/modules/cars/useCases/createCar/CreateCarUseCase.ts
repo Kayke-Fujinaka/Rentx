@@ -1,3 +1,4 @@
+import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { HttpError } from "@shared/errors/HttpError";
 
@@ -26,14 +27,14 @@ class CreateCarUseCase {
     fine_amount,
     brand,
     category_id,
-  }: IRequest): Promise<void> {
+  }: IRequest): Promise<Car> {
     const carAlreadyExists = await this.carsRepository.findByLicensePlate(
       license_plate
     );
 
     if (carAlreadyExists) throw new HttpError("Car already exists!", 400);
 
-    await this.carsRepository.create({
+    const car = await this.carsRepository.create({
       name,
       description,
       daily_rate,
@@ -42,6 +43,8 @@ class CreateCarUseCase {
       brand,
       category_id,
     });
+
+    return car;
   }
 }
 
