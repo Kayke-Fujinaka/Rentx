@@ -6,10 +6,18 @@ import swaggerUi from "swagger-ui-express";
 
 import "@shared/container";
 import { HttpError } from "@shared/errors/HttpError";
-import "@shared/infra/typeorm";
+import { createConnection } from "@shared/infra/typeorm";
 
 import swaggerFile from "../../../swagger.json";
 import { router } from "./routes";
+
+createConnection()
+  .then(() => {
+    console.log("Data Source has been initialized\n");
+  })
+  .catch((e) => {
+    console.log("Error initializing Data Source", e);
+  });
 
 const app = express();
 

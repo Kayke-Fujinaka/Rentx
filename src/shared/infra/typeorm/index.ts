@@ -1,28 +1,38 @@
 import dotenv from "dotenv";
-import { DataSource } from "typeorm";
-
-import { User } from "@modules/accounts/infra/typeorm/entities/User";
-import { Car } from "@modules/cars/infra/typeorm/entities/Car";
-import { Category } from "@modules/cars/infra/typeorm/entities/Category";
-import { Specification } from "@modules/cars/infra/typeorm/entities/Specification";
+import "reflect-metadata";
+import { DataSource, DataSourceOptions } from "typeorm";
 
 dotenv.config();
 
-const AppDataSource = new DataSource({
+const connectionOptions: DataSourceOptions = {
   type: "postgres",
-  host: process.env.DOCKER_CONTAINER ? process.env.DB_HOST : "localhost",
+  host: "localhost",
   port: 5432,
   username: "docker",
   password: "1234",
   database: "rentx",
-  entities: [Category, Specification, User, Car],
-  migrations: ["src/shared/infra/typeorm/migrations/*.ts"],
-});
+  synchronize: false,
+  logging: false,
+  entities: ["./src/modules/**/infra/typeorm/entities/*.ts"],
+  migrations: ["./src/shared/infra/typeorm/migrations/*.ts"],
+  subscribers: [],
+};
 
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Initialized");
-  })
-  .catch((error) => console.log(error));
+const AppDataSource = new DataSource(connectionOptions);
+
+export async function createConnection(host = "database"): Promise<DataSource> {
+  return AppDataSource.setOptions({
+    host: process.env.DOCKER_CONTAINER ? "localhost" : host,
+    database: process.env.DOCKER_CONTAINER
+      ? "rentx"
+      : AppDataSource.options.database.toString(),
+  }).initialize();
+}
+
+export async function runQuery(query: string): Promise<void> {
+  await AppDataSource.transaction(async (transactionalEntityManager) => {
+    await transactionalEntityManager.query(query);
+  });
+}
 
 export default AppDataSource;
