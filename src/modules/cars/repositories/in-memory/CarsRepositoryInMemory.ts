@@ -37,23 +37,20 @@ class CarsRepositoryInMemory implements ICarsRepository {
   }
 
   async findAvailable(
+    brand?: string,
     category_id?: string,
-    name?: string,
-    brand?: string
+    name?: string
   ): Promise<Car[]> {
-    const filters = Object.fromEntries(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      Object.entries({ brand, category_id, name }).filter(([_, value]) => value)
-    );
-
-    const filteredCars = this.cars.filter((currentCar) =>
-      Object.entries(filters).every(
-        ([filterName, filterValue]) =>
-          currentCar[filterName] === filterValue && currentCar.available
+    return this.cars.filter((car) => {
+      if (
+        car.available === true ||
+        (brand && car.brand === brand) ||
+        (category_id && car.category_id === category_id) ||
+        (name && car.name === name)
       )
-    );
-
-    return filteredCars;
+        return car;
+      return null;
+    });
   }
 }
 
