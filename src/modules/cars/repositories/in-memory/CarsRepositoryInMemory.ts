@@ -42,6 +42,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
     brand?: string
   ): Promise<Car[]> {
     const filters = Object.fromEntries(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       Object.entries({ brand, category_id, name }).filter(([_, value]) => value)
     );
 
