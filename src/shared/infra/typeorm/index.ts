@@ -11,7 +11,6 @@ const connectionOptions: DataSourceOptions = {
   username: "docker",
   password: "1234",
   database: "rentx",
-  synchronize: false,
   logging: false,
   entities: ["./src/modules/**/infra/typeorm/entities/*.ts"],
   migrations: ["./src/shared/infra/typeorm/migrations/*.ts"],
