@@ -63,7 +63,7 @@ class CarsRepository implements ICarsRepository {
   }
 
   async findById(id: string): Promise<Car> {
-    return this.repository.findOne(id);
+    return this.repository.findOne({ where: { id } });
   }
 }
 
