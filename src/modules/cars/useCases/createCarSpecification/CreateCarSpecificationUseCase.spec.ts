@@ -1,16 +1,19 @@
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
-import { HttpError } from "@shared/errors/HttpError";
+import { SpecificationsRepositoryInMemory } from "@modules/cars/repositories/in-memory/SpecificationsRepositoryInMemory";
 
 import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase";
 
-let createCarSpecificationUseCase: CreateCarSpecificationUseCase;
 let carsRepositoryInMemory: CarsRepositoryInMemory;
+let specificationsRepositoryInMemory: SpecificationsRepositoryInMemory;
+let createCarSpecificationUseCase: CreateCarSpecificationUseCase;
 
-describe("Create Car Specification", () => {
+describe("Create car specification", () => {
   beforeEach(() => {
     carsRepositoryInMemory = new CarsRepositoryInMemory();
+    specificationsRepositoryInMemory = new SpecificationsRepositoryInMemory();
     createCarSpecificationUseCase = new CreateCarSpecificationUseCase(
-      carsRepositoryInMemory
+      carsRepositoryInMemory,
+      specificationsRepositoryInMemory
     );
   });
 
@@ -25,23 +28,19 @@ describe("Create Car Specification", () => {
       category_id: "0123456789",
     });
 
-    const specifications_id = ["123", "543"];
+    const specification = await specificationsRepositoryInMemory.create({
+      name: "Test Specification Name",
+      description: "Test Specification Description",
+    });
 
-    await createCarSpecificationUseCase.execute({
+    const specifications_id = [specification.id];
+
+    const specificationsCars = await createCarSpecificationUseCase.execute({
       car_id: car.id,
       specifications_id,
     });
-  });
 
-  it("should not be able to add a new specification to a non-existent car", async () => {
-    expect(async () => {
-      const car_id = "123";
-      const specifications_id = ["543"];
-
-      await createCarSpecificationUseCase.execute({
-        car_id,
-        specifications_id,
-      });
-    }).rejects.toBeInstanceOf(HttpError);
+    expect(specificationsCars).toHaveProperty("specifications");
+    expect(specificationsCars.specifications.length).toBe(1);
   });
 });
