@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 
-@Entity("cars_image")
-class CarImage {
+@Entity("car_images")
+class CarImages {
   @PrimaryColumn()
   id: string;
 
@@ -20,4 +20,4 @@ class CarImage {
   }
 }
 
-export { CarImage };
+export { CarImages };
