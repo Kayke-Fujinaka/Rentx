@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 
 @Entity("cars_image")
@@ -13,6 +14,10 @@ class CarImage {
 
   @CreateDateColumn()
   created_at: Date;
+
+  constructor() {
+    if (!this.id) this.id = randomUUID();
+  }
 }
 
 export { CarImage };
