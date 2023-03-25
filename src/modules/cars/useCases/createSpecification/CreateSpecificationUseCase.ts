@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationsRepository";
+import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 import { HttpError } from "@shared/errors/HttpError";
 
 interface IRequest {
@@ -12,7 +12,7 @@ interface IRequest {
 class CreateSpecificationUseCase {
   constructor(
     @inject("SpecificationsRepository")
-    private specificationRepository: SpecificationsRepository
+    private specificationRepository: ISpecificationsRepository
   ) {}
 
   async execute({ name, description }: IRequest): Promise<void> {
