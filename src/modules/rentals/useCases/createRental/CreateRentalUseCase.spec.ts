@@ -38,4 +38,20 @@ describe("Create Rental", () => {
       });
     }).rejects.toBeInstanceOf(HttpError);
   });
+
+  it("should not be able to create a new rental if there is another open to the same car", async () => {
+    expect(async () => {
+      await createRentalUseCase.execute({
+        user_id: "12345",
+        car_id: "12345",
+        expected_return_date: new Date(),
+      });
+
+      await createRentalUseCase.execute({
+        user_id: "122345",
+        car_id: "12345",
+        expected_return_date: new Date(),
+      });
+    }).rejects.toBeInstanceOf(HttpError);
+  });
 });
