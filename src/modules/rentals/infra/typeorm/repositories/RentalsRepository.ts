@@ -6,7 +6,7 @@ import AppDataSource from "@shared/infra/typeorm";
 
 import { Rental } from "../entities/Rentals";
 
-class RentalRepository implements IRentalsRepository {
+class RentalsRepository implements IRentalsRepository {
   private repository: Repository<Rental>;
 
   constructor() {
@@ -38,4 +38,4 @@ class RentalRepository implements IRentalsRepository {
   }
 }
 
-export { RentalRepository };
+export { RentalsRepository };
