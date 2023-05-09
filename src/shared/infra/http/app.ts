@@ -13,7 +13,7 @@ import { router } from "./routes";
 
 createConnection()
   .then(() => {
-    console.log("Data Source has been initialized\n");
+    console.log("Data Source has been initialized");
   })
   .catch((e) => {
     console.log("Error initializing Data Source", e);
