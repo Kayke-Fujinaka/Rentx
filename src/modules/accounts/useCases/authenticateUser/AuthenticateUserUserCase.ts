@@ -2,8 +2,10 @@ import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
+import auth from "@config/auth";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { HttpError } from "@shared/errors/HttpError";
 
 interface IRequest {
@@ -17,6 +19,7 @@ interface IResponse {
     email: string;
   };
   token: string;
+  refresh_token: string;
 }
 
 @injectable()
@@ -25,10 +28,20 @@ class AuthenticateUserUseCase {
     @inject("UsersRepository")
     private usersRepository: IUsersRepository,
     @inject("UsersTokensRepository")
-    private usersTokensRepository: IUsersTokensRepository
+    private usersTokensRepository: IUsersTokensRepository,
+    @inject("DayjsDateProvider")
+    private dateProvider: IDateProvider
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
+    const {
+      refresh_token_expires_days,
+      expires_in_token,
+      expires_in_refresh_token,
+      secret_refresh_token,
+      secret_token,
+    } = auth;
+
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) throw new HttpError("Email or password incorrect!", 404);
@@ -38,9 +51,24 @@ class AuthenticateUserUseCase {
     if (!passwordMatch)
       throw new HttpError("Email or password incorrect!", 404);
 
-    const token = sign({}, "054b9ba25573c70ceeb2411294ca9b42", {
+    const token = sign({}, secret_token, {
       subject: user.id,
-      expiresIn: "1d",
+      expiresIn: expires_in_token,
+    });
+
+    const refresh_token = sign({ email }, secret_refresh_token, {
+      subject: user.id,
+      expiresIn: expires_in_refresh_token,
+    });
+
+    const refresh_token_expires_date = this.dateProvider.addDays(
+      refresh_token_expires_days
+    );
+
+    await this.usersTokensRepository.create({
+      user_id: user.id,
+      refresh_token,
+      expires_date: refresh_token_expires_date,
     });
 
     const tokenReturn: IResponse = {
@@ -49,6 +77,7 @@ class AuthenticateUserUseCase {
         name: user.name,
         email: user.email,
       },
+      refresh_token,
     };
 
     return tokenReturn;
