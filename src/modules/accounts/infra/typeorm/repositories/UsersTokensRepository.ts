@@ -38,6 +38,10 @@ class UsersTokensRepository implements IUsersTokensRepository {
     });
     return usersTokens;
   }
+
+  async deleteById(id: string): Promise<void> {
+    await this.repository.delete(id);
+  }
 }
 
 export { UsersTokensRepository };
