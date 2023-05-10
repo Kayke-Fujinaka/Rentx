@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import {
   Column,
   CreateDateColumn,
@@ -29,6 +30,10 @@ class UserTokens {
 
   @CreateDateColumn()
   created_at: Date;
+
+  constructor() {
+    if (!this.id) this.id = randomUUID();
+  }
 }
 
 export { UserTokens };
