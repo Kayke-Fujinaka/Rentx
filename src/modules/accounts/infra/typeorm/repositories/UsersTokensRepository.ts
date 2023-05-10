@@ -28,6 +28,11 @@ class UsersTokensRepository implements IUsersTokensRepository {
 
     return userToken;
   }
+
+  async findByUserId(user_id: string): Promise<UserTokens[]> {
+    const usersTokens = await this.repository.find({ where: { user_id } });
+    return usersTokens;
+  }
 }
 
 export { UsersTokensRepository };
