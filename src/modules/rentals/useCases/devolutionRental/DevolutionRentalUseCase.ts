@@ -8,6 +8,7 @@ import { HttpError } from "@shared/errors/HttpError";
 
 interface IRequest {
   id: string;
+  user_id: string;
 }
 
 class DevolutionRentalUseCase {
@@ -20,7 +21,7 @@ class DevolutionRentalUseCase {
     private carsRepository: ICarsRepository
   ) {}
 
-  async execute({ id }: IRequest): Promise<Rental> {
+  async execute({ id, user_id }: IRequest): Promise<Rental> {
     const minimum_daily = 1;
 
     const rental = await this.rentalsRepository.findById(id);
