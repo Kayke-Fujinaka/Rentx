@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container, injectable } from "tsyringe";
 
-import { SendForgotPasswordMailUseCase } from "./SendForgotPasswordMailUseCase";
+import { SendForgotPasswordMailUseCase } from "@modules/accounts/useCases";
 
 @injectable()
 class SendForgotPasswordMailController {

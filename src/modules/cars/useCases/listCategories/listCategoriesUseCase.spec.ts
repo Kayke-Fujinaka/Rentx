@@ -1,8 +1,9 @@
 import { ICreateCategoryDTO } from "@modules/cars/dtos/ICreateCategoryDTO";
 import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory";
-
-import { CreateCategoryUseCase } from "../createCategory/CreateCategoryUseCase";
-import { ListCategoriesUseCase } from "./listCategoriesUseCase";
+import {
+  CreateCategoryUseCase,
+  ListCategoriesUseCase,
+} from "@modules/cars/useCases";
 
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
 let createCategoryUseCase: CreateCategoryUseCase;

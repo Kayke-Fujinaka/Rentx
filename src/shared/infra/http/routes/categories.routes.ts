@@ -5,9 +5,8 @@ import uploadConfig from "@config/upload";
 import { CreateCategoryController } from "@modules/cars/useCases/createCategory/CreateCategoryController";
 import { ImportCategoryController } from "@modules/cars/useCases/importCategory/ImportCategoryController";
 import { ListCategoriesController } from "@modules/cars/useCases/listCategories/listCategoriesController";
-
-import { ensureAdmin } from "../middlewares/ensureAdmin";
-import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
+import { ensureAdmin } from "@shared/infra/http/middlewares/ensureAdmin";
+import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
 
 const categoriesRoutes = Router();
 

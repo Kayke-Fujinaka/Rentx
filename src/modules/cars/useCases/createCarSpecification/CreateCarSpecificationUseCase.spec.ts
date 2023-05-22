@@ -1,8 +1,7 @@
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
 import { SpecificationsRepositoryInMemory } from "@modules/cars/repositories/in-memory/SpecificationsRepositoryInMemory";
+import { CreateCarSpecificationUseCase } from "@modules/cars/useCases";
 import { HttpError } from "@shared/errors/HttpError";
-
-import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase";
 
 let carsRepositoryInMemory: CarsRepositoryInMemory;
 let specificationsRepositoryInMemory: SpecificationsRepositoryInMemory;
