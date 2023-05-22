@@ -3,7 +3,9 @@ import nodemailer, { Transporter } from "nodemailer";
 import { IMailProvider } from "../IMailProvider";
 
 class EtherealMailProvider implements IMailProvider {
-  constructor(private client: Transporter) {
+  private client: Transporter;
+
+  constructor() {
     nodemailer
       .createTestAccount()
       .then((account) => {
